@@ -1,0 +1,47 @@
+#%RAML 1.0
+types:
+  callbackUrl:
+    description: This is a call back url, once this Async api completes task, then it will send the status though this Call back URL/API. this is mandata field.
+    example: https://anypoint.mulesoft.com/mocking/api/v1/links/560e3e98-e4ab-4818-acaf-3980aa1777d2/send-response
+    type: string
+  correlationId:
+    description: This is a CorrelationId
+    example: asdfasdi09qerqwdq454E
+    type: string
+  Task:
+    description: Mention the task like file writing.
+    example: copy data from file1 to file2.
+    type: string
+title: file-writing
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/e385d56e-a326-4e9e-9ff2-cead06295bcb/
+description: this is a ASYNC API which process the records once completed, result will send through, callback url. For this API callback url is mandate.
+mediaType:
+  - application/json
+protocols:
+  - HTTP
+/task:
+  post:
+    body:
+      application/json:
+        properties:
+          callbackUrl:
+            description: Property description
+            type:
+              - callbackUrl
+          correlationId:
+            description: Property description
+            type:
+              - correlationId
+          task:
+            description: Property description
+            type:
+              - Task
+    responses:
+      "200":
+        description: this is sync response from Async API.
+        body:
+          properties:
+            reponse:
+              description: Property description
+              example: Hey we are processing your request.we will let u know once task is completed though your callback URL which you have mentioned in request.
+              type: string
